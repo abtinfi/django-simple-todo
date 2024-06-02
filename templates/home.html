@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+
+{%block content%} 
+<div class="card">
+{%for i in todos%}
+<a href="{% url "details" i.id %}">{{i.title}}</a><hr/>
+{% endfor %}
+{%endblock%}
+</div>
+{%block title%}home page{%endblock%}
+
+    
