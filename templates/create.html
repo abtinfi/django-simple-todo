@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>
-    Create a new todo
-</h3>
-{{form}}
+  <h3>Create a new todo</h3>
+  <form method="post" action="" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" />
+  </form>
 {% endblock %}
