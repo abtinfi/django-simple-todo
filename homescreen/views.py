@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from homescreen.forms import ToDoCreatForms
+from homescreen.forms import ToDoCreatForms, ToDoUpdateForm
 from .models import ToDo
 from django.contrib import messages
 
@@ -43,3 +43,16 @@ def create(request):
     else:
         form = ToDoCreatForms()
     return render(request, "create.html", {"form": form})
+
+
+def update(request, todo_id):
+    todo = ToDo.objects.get(id=todo_id)
+    if request.method == 'POST':
+        form = ToDoUpdateForm(request.POST, instance=todo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'your todo updated successfuly', 'success')
+            return redirect('details', todo_id)
+    else:
+        form = ToDoUpdateForm(instance=todo)
+    return render(request, 'update.html', {'form':form})
