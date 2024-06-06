@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
@@ -38,7 +38,13 @@ def user_login(request):
             else:
                 messages.error(
                     request, 'your pass or username is wrong', 'danger')
-                
+
     else:
         form = UserLoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'you loged out successfuly', 'success')
+    return redirect('home')
